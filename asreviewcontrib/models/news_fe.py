@@ -70,13 +70,13 @@ class News(BaseFeatureExtraction):
             #text = ' '.join(text.split()[1:len(text.split())])
 
             counter = counter+1
-            resultsentiment = np.append(resultsentiment, self.generatesentimentvalues(text))
-            resulttextlen = np.append(resulttextlen, self.gettextlength(text))
+            #resultsentiment = np.append(resultsentiment, self.generatesentimentvalues(text))
+            #resulttextlen = np.append(resulttextlen, self.gettextlength(text))
             #resultspecificwords = np.append(resultspecificwords, self.specific_words_check(text))
             #resultner = np.append(resultner, self.generate_named_entities(text), axis = 0)
             #resultstddevsentence = np.append(resultstddevsentence, self.standard_dev_sentence_length(text))
             resultstddevwords = np.append(resultstddevwords, self.standard_dev_word_length(text))
-            #resultreadability = np.append(resultreadability, self.readability_index(text))
+            resultreadability = np.append(resultreadability, self.readability_index(text))
             resulttypetoken = np.append(resulttypetoken, self.type_token_ratio(text))
             #resultpropernouns = np.append(resultpropernouns, self.proper_nouns(text))
             #resultpassivevoice = np.append(resultpassivevoice, self.percentage_passive_voice(text))
@@ -84,7 +84,7 @@ class News(BaseFeatureExtraction):
             print('Currently at instance:', counter, '/', len(texts))
 
         # load in bag of words data
-        resultbow = pd.read_excel(r'C:\Users\MichaG\Documents\Scriptie\Data-main\bowdf1001_ftm_train.xlsx', index_col=[0])
+        resultbow = pd.read_csv(r'C:\Users\MichaG\Documents\Scriptie\Data-main\bowdf1001_news_adjusted_train.csv', index_col=[0])
         resultbow = resultbow.to_numpy()
 
 
@@ -104,8 +104,8 @@ class News(BaseFeatureExtraction):
 
         #Concatenate all arrays into one final array
         #result = np.hstack((resultsentiment, resulttextlen, resultspecificwords, resultstddevsentence, resultstddevwords[0:1596], resultreadability, resultpassivevoice, resultactivevoice, resulttypetoken, result_bow, resultner))
-        result = np.hstack((resulttextlen, resultsentiment, resulttypetoken, resultstddevwords, resultbow))
-        print(result.shape[0])
+        result = np.hstack((resultreadability, resultstddevwords, resulttypetoken, resultbow))
+        print(result.shape)
         return result
 
     def generatesentimentvalues(self, text):
