@@ -2,7 +2,7 @@ from setuptools import setup
 from setuptools import find_namespace_packages
 
 setup(
-    name='asreview-template-model-extension',
+    name='Dutch news feature extractor',
     version='0.1',
     description='Example classifier extension',
     url='https://github.com/asreview/asreview',
@@ -20,14 +20,20 @@ setup(
     python_requires='~=3.6',
     install_requires=[
         'sklearn',
-        'asreview>=0.13'
+        'asreview>=0.8',
+        'transformers',
+        'pyenchant',
+        'nltk',
+        'spacy',
+        'num2words',
+        'tensorflow',
+        'spacy'
     ],
     entry_points={
         'asreview.models.classifiers': [
-            'nb_example = asreviewcontrib.models.nb_default_param:NaiveBayesDefaultParamsModel',
         ],
         'asreview.models.feature_extraction': [
-            # define feature_extraction algorithms
+            'news = asreviewcontrib.models.news_fe:News'
         ],
         'asreview.models.balance': [
             # define balance strategy algorithms
